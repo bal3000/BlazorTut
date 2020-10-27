@@ -1,10 +1,12 @@
-@page "/authentication/{action}"
-
+﻿@page "/authentication/{action}"
 @inject OrderState OrderState
 @inject NavigationManager NavigationManager
 
-<RemoteAuthenticatorViewCore TAuthenticationState="PizzaAuthenticationState"
-AuthenticationState="RemoteAuthenticationState" OnLogInSucceeded="RestorePizza" Action="@Action" />
+<RemoteAuthenticatorViewCore
+    TAuthenticationState="PizzaAuthenticationState"
+    AuthenticationState="RemoteAuthenticationState"
+    OnLogInSucceeded="RestorePizza"
+    Action="@Action" />
 
 @code{
     [Parameter] public string Action { get; set; }

@@ -1,9 +1,8 @@
-@page "/myorders/{orderId:int}"
-
+﻿@page "/myorders/{orderId:int}"
+@attribute [Authorize]
 @using System.Threading
-
 @inject OrdersClient OrdersClient
-
+@inject NavigationManager NavigationManager
 @implements IDisposable
 
 <div class="main">
@@ -52,11 +51,6 @@
         PollForUpdates();
     }
 
-    void IDisposable.Dispose()
-    {
-        pollingCancellationToken?.Cancel();
-    }
-
     private async void PollForUpdates()
     {
         invalidOrder = false;
@@ -67,7 +61,15 @@
             {
                 orderWithStatus = await OrdersClient.GetOrder(OrderId);
                 StateHasChanged();
-                await Task.Delay(4000);
+
+                if (orderWithStatus.IsDelivered)
+                {
+                    pollingCancellationToken.Cancel();
+                }
+                else
+                {
+                    await Task.Delay(4000);
+                }
             }
             catch (AccessTokenNotAvailableException ex)
             {
@@ -82,5 +84,10 @@
                 StateHasChanged();
             }
         }
+    }
+
+    void IDisposable.Dispose()
+    {
+        pollingCancellationToken?.Cancel();
     }
 }
