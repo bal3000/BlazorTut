@@ -1,6 +1,7 @@
-@page "/myorders"
-
+﻿@page "/myorders"
+@attribute [Authorize]
 @inject OrdersClient OrdersClient
+@inject NavigationManager NavigationManager
 
 <div class="main">
     @if (ordersWithStatus == null)

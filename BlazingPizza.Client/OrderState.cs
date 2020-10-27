@@ -1,16 +1,18 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BlazingPizza.Client
 {
     public class OrderState
     {
-        public Pizza ConfiguringPizza { get; private set; }
         public bool ShowingConfigureDialog { get; private set; }
+
+        public Pizza ConfiguringPizza { get; private set; }
+
         public Order Order { get; private set; } = new Order();
 
         public void ShowConfigurePizzaDialog(PizzaSpecial special)
         {
-            ConfiguringPizza = new Pizza
+            ConfiguringPizza = new Pizza()
             {
                 Special = special,
                 SpecialId = special.Id,
@@ -31,6 +33,7 @@ namespace BlazingPizza.Client
         {
             Order.Pizzas.Add(ConfiguringPizza);
             ConfiguringPizza = null;
+
             ShowingConfigureDialog = false;
         }
 
@@ -43,6 +46,7 @@ namespace BlazingPizza.Client
         {
             Order = new Order();
         }
+
         public void ReplaceOrder(Order order)
         {
             Order = order;

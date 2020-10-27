@@ -38,9 +38,9 @@
 @code {
     [Parameter] public int OrderId { get; set; }
 
-    private OrderWithStatus orderWithStatus;
-    private bool invalidOrder;
-    private CancellationTokenSource pollingCancellationToken;
+    OrderWithStatus orderWithStatus;
+    bool invalidOrder;
+    CancellationTokenSource pollingCancellationToken;
 
     protected override void OnParametersSet()
     {
